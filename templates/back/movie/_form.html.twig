@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<button class="btn btn-danger" onclick="return confirm('Are you sure?')">
+    {{ button_label|default('Submit me') }}
+</button>
+{{ form_end(form) }}

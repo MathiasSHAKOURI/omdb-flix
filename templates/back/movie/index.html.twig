@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Movie index</h1>
+
+{% for message in app.flashes('notice') %}
+    <div class="flash-notice mb-2">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+<div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>ReleaseDate</th>
+                    <th>Duration</th>
+                    <th>Type</th>
+                    <th>Summary</th>
+                    <th>Synopsis</th>
+                    <th>Poster</th>
+                    <th>Rating</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.id }}</td>
+                    <td>{{ movie.title|u.truncate(30,'...') }}</td>
+                    <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
+                    <td>{{ movie.duration }}</td>
+                    <td>{{ movie.type }}</td>
+                    <td>{{ movie.summary|u.truncate(20,'...') }}</td>
+                    <td>{{ movie.synopsis|u.truncate(20,'...') }}</td>
+                    <td>{{ movie.poster|u.truncate(20,'...') }}</td>
+                    <td>{{ movie.rating }}</td>
+                    <td>
+                        <a href="{{ path('app_admin_movie_show', {'id': movie.id}) }}" class="btn btn-warning">show</a>
+                        <a href="{{ path('app_admin_movie_edit', {'id': movie.id}) }}" class="btn btn-primary">edit</a>
+                        <a href="{{ path('app_admin_movie_delete', {'id': movie.id}) }}" class="btn btn-danger">delete</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+
+    <a href="{{ path('app_admin_movie_new') }}">Create new</a>
+{% endblock %}

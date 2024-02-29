@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1 class="mx-auto text-center">Interface admin</h1>
+
+    <table class="table w-50 text-center mx-auto">
+        <thead>
+            <tr>
+                <th class="col-4">Type</th>
+                <th class="col-4">Liste</th>
+                <th class="col-4">New</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Movie</td>
+                <td><a href="{{ path('app_admin_movie_index') }}" class="btn btn-danger my-3">Liste de tous les fims</a></td>
+                <td><a href="{{ path('app_admin_movie_new') }}" class="btn btn-danger my-3">Create new movie</a></td>
+            </tr>
+            <tr>
+                <td>Season</td>
+                <td><a href="{{ path('app_season_index') }}" class="btn btn-danger my-3">Liste de toutes les saisons</a></td>
+                <td><a href="{{ path('app_season_new') }}" class="btn btn-danger my-3">Create new season</a></td>
+            </tr>
+            <tr>
+                <td>Acteurs</td>
+                <td><a href="{{ path('app_back_person_index') }}" class="btn btn-danger my-3">Liste de toutes les acteurs</a></td>
+                <td><a href="{{ path('app_back_person_new') }}" class="btn btn-danger my-3">Create new acteurs</a></td>
+            </tr>
+            <tr>
+                <td>Reviews</td>
+                <td><a href="{{ path('app_back_review_index') }}" class="btn btn-danger my-3">Liste de toutes les Reviews</a></td>
+                <td><a href="{{ path('app_back_review_new') }}" class="btn btn-danger my-3">Create new review</a></td>
+            </tr>
+            <tr>
+                <td>Utilisateurs</td>
+                <td><a href="{{ path('app_back_user_index') }}" class="btn btn-danger my-3">Liste de tous les utilisateurs</a></td>
+                <td><a href="{{ path('app_back_user_new') }}" class="btn btn-danger my-3">Create new user</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fecc00;">
+{% endblock %}
+
+{% block title %}
+    <span class="header-logo__title text-dark">OmdbFlix</span>
+{% endblock %}
+
+{% block connextionBtn %}
+    <button type="button" class="btn btn-dark me-2">Connexion</button>
+{% endblock %}
+
+{% block searchBtn %}
+    <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
+{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-md-6" style="background-color: #FECC00; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+        {{ form_start(form) }}
+
+            {{ form_row(form.content, {'label': 'Votre commentaire','attr': {'class': 'form-control mb-3', 'placeholder': 'Contenu'}}) }}
+
+            {{ form_row(form.email, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Email'}}) }}
+
+            {{ form_row(form.username, {'label': 'Votre pseudo','attr': {'class': 'form-control mb-3', 'placeholder': 'Nom d\'utilisateur'}}) }}
+
+            {{ form_row(form.rating, {'label': 'Votre avis','attr': {'class': 'form-control mb-3', 'placeholder': 'Une note entre 1 et 5'}}) }}
+
+            {{ form_row(form.reaction, {'label': 'Ce film vous a fait','attr': {'class': 'form-control mb-3', 'placeholder': 'Une ou plusieurs réactions'}}) }}
+
+            {{ form_row(form.watchedAt, {'label': 'Vous avez vu ce film le', 'attr': {'class': 'form-control mb-3'}}) }}
+
+            {{ form_row(form.save, {'label': 'Ajouter', 'attr': {'class': 'btn btn-warning', 'style': 'background-color: white; color: black;', 'onclick': 'return confirm("Are you sure?");'}}) }}
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

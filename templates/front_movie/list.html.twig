@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-xl bg-light p-5 border-top">
+
+        <div class="row mb-2">
+
+			<div class="col-12 col-lg-3">
+				<h2 class="text-center text-muted fw-bold mb-4">Les genres</h2>
+				<ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
+
+					{% for genre in genres %}
+						<li class="btn btn-sm btn-outline-danger mx-1 mb-2">{{ genre.name }}</li>
+					{% endfor %}
+
+				</ul>
+			</div>
+
+
+            <div class="col-12 col-lg-9">
+
+                <h2 class="text-muted fw-bold mb-4">Les films et séries/Résultats de recherche</h2>
+
+                {% if movies[0] is defined and movies is not null and pagination is defined %}
+					{% for movie in pagination %}
+						<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
+							<div class="col-4 movie__poster" style="background-image: url({{movie.poster}});">
+								<img src="images/poster-placeholder.png" class="img-fluid">
+							</div>
+							<div class="col-8 p-4 d-flex flex-column position-static">
+
+								{% include "fragment/_toggle_button.html.twig" %}
+
+								<strong class="d-inline-block mb-2 text-primary">{{movie.type}}</strong>
+								<h3 class="mb-1">{{movie.title}}</h3>
+								<div class="mb-1 text-muted">{{movie.duration}}
+									min</div>
+
+								<p>
+									{% for genre in movie.genres %}
+										<span class="badge bg-danger text-white">{{ genre.name }}</span>
+									{% endfor %}
+								</p>
+
+								<p>
+									<small>{{ movie.summary }}</small>
+								</p>
+
+								{% include 'fragment/_star_rating.html.twig' %}
+
+								<dt class="col-sm-12">Année</dt>
+								<dd class="col-sm-12">{{ movie.releaseDate|date('Y') }}</dd>
+
+								<a href="{{ path('app_show', {id: movie.id,slug: movie.slug})}}" class="fs-1 mt-3 text-danger align-self-start">
+									<i class="bi bi-arrow-right-square"></i>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+
+				{% else %}
+					<h1 class="mt-5 text-center">
+					Merci de saisir une valeur dans le champ de recherche valide.
+					</br>
+					</br>
+					Aucuns résultats pour votre recherche.
+					</h1>
+				{% endif %}
+            </div>
+
+            <nav class="col-lg-9 offset-lg-3">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link">&laquo;</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item" aria-current="page">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+{% endblock %}

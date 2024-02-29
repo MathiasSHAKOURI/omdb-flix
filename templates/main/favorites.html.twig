@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="container-xl bg-light p-5 border-top">
+
+        <div class="row mb-2">
+
+            <h2 class="text-muted fw-bold mb-4">Ma liste</h2>
+
+            {# {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+
+            {% for message in app.flashes('danger') %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %} #}
+
+            {% include "fragment/_flash_message.html.twig" %}
+
+{% if movies is defined and movies is not empty %}
+    {% for movie in movies %}
+
+            <div class="col-6">
+
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
+                    <div class="col-4 movie__poster" style="background-image: url({{movie.poster}});">
+                        <img src="images/poster-placeholder.png" class="img-fluid">
+                    </div>
+                    <div class="col-8 p-4 d-flex flex-column position-static">
+
+                        {# <a href="{{ path('app_favorites_toggle', {id: movie.id})}}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-x-fill"></i></a> #}
+
+                        {% include "fragment/_toggle_button.html.twig" %}
+
+                        <strong class="d-inline-block mb-2 text-primary">{{movie.type}}</strong>
+                        <h3 class="mb-1">{{movie.title}}</h3>
+                        <div class="mb-1 text-muted">{{movie.duration}} min</div>
+                        
+                        <p>
+                        {% for genre in movie.genres %}
+                            <span class="badge bg-danger text-white">{{ genre.name }}</span>
+                        {% endfor %}
+                        </p>
+                        
+                        <a href="./show.html" class="fs-1 mt-3 text-danger align-self-start">
+                            <i class="bi bi-arrow-right-square"></i>
+                        </a>
+                    </div>
+                </div>
+            
+            </div>
+    {% endfor %}
+{% else %}
+    Aucuns films dans vos favoris.
+{% endif %}
+
+        </div>
+
+        <div class="col">
+            <a href="{{ path('app_favorites_empty') }}" class="btn btn-danger btn-sm" onclick="return confirm('Vider votre liste de favoris ?');">Vider la liste</a>
+        </div>
+
+    </div>
+{% endblock %}

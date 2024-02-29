@@ -1,0 +1,10 @@
+{# {% if movies_favorites[movie.id] is not defined %} #}
+{# {% if app.session.get("attributes-favoris")[movie.id] is not defined %}
+    <a href="{{ path('app_favorites_toggle', {id: movie.id} ) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+{% else %}
+    <a href="{{ path('app_favorites_toggle', {id: movie.id})}}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-x-fill"></i></a>
+{% endif %} #}
+
+{% set favoriteClass = app.session.get("attributes-favoris")[movie.id] is not defined ? 'plus' : 'x-fill' %}
+
+<a href="{{ path('app_favorites_toggle', {id: movie.id}) }}" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-{{ favoriteClass }}"></i></a>

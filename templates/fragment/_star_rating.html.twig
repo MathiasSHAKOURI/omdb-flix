@@ -1,0 +1,11 @@
+{% if movie.rating is defined and movie.rating is not null %}
+	<div class="d-flex" style="color: orange;">
+		<i class="bi bi-star-fill"></i>
+		{% for i in 1..4 %}
+			<i class="bi bi-star{{ movie.rating >= (i + 1) ? '-fill' : '' }}{{ movie.rating >= i + 0.5 and movie.rating < i + 1 ? '-half' : '' }}"></i>
+		{% endfor %}
+		<span class="ps-1">{{ movie.rating|number_format(1) }}</span>
+	</div>
+{% else %}
+	<p>Ce film n'a pas reçu assez de critiques</p>
+{% endif %}

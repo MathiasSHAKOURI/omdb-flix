@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Créer un nouveau film</h1>
+
+    {{ include('back/movie/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_movie_index') }}" class="btn btn-outline-danger mt-3">back to list</a>
+{% endblock %}

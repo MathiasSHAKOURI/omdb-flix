@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DemoSessionController!{% endblock %}
+
+{% block body %}
+<h1>Hello {{user_name}}</h1>
+
+<p><a href="{{ path('app_demo_session_add', {name: 'Marc'}) }}">Marc</a></p>
+<p><a href="{{ path('app_demo_session_add', {name: 'Jeremy'}) }}">Jeremy</a></p>
+<p><a href="{{ path('app_demo_session_add', {name: 'Hicham'}) }}">Hicham</a></p>
+<p><a href="{{ path('app_demo_session_add', {name: 'Karine'}) }}">Karine</a></p>
+{% endblock %}
