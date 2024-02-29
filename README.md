@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/MathiasSHAKOURI/omdb-flix/assets/122030473/60111c4c-6391-44e7-bc32-60c9ead891ac" />
+</p>
+
 # OmdbFlix - Films et Séries
 
 ## Projet Symfony
