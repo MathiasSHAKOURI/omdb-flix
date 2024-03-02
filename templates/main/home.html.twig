@@ -2,6 +2,7 @@
 
 
 {% block body %}
+
 	<div class="my-5 py-5 text-center">
 		<img src="{{ asset('favicon.png') }}" height="100" alt="Logo OmdbFlix" class="mb-3">
 		<h1 class="display-6 fw-bold">Films, séries TV et popcorn en illimité.</h1>
@@ -18,7 +19,14 @@
 				<ul class="d-flex flex-column flex-wrap list-unstyled justify-content-center">
 
 					{% for genre in genres %}
-						<li class="btn btn-sm btn-outline-danger mx-1 mb-2">{{ genre.name }}</li>
+						<a href="{{ path('app_home_genre', {id: genre.id})}}" class="btn btn-sm 
+							{% if genreId is defined %}
+								{{ genre.id == genreId.id ? 'btn-danger' : 'btn-outline-danger' }}
+							{% else %}
+								btn-outline-danger
+							{% endif %}
+
+						mx-1 mb-2">{{ genre.name }}</a>
 					{% endfor %}
 
 				</ul>
@@ -28,7 +36,11 @@
 
 				<h2 class="text-muted fw-bold mb-4">
 					{% if app.request.query.all['search'] is defined and app.request.query.all['search'] is not null %}
-						Votre recherche de "{{ app.request.query.all['search'] }}"{% else %}Les nouveautés
+						Votre recherche de "{{ app.request.query.all['search'] }}"
+					{% elseif movies_by_genre[0] is defined and movies_by_genre is not null %}
+						{{ genreId.name }}: {{ movies_by_genre[0].movies|length }} films
+					{% else %}
+						Les nouveautés
 					{% endif %}
 				</h2>
 
@@ -69,6 +81,44 @@
 						</div>
 					{% endfor %}
 
+				{% elseif movies_by_genre[0] is defined and movies_by_genre is not null %}
+
+					{% for movie in pagination %}
+						<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
+							<div class="col-4 movie__poster" style="background-image: url({{movie.poster}});">
+								<img src="images/poster-placeholder.png" class="img-fluid">
+							</div>
+							<div class="col-8 p-4 d-flex flex-column position-static">
+
+								{% include "fragment/_toggle_button.html.twig" %}
+
+								<strong class="d-inline-block mb-2 text-primary">{{movie.type}}</strong>
+								<h3 class="mb-1">{{movie.title}}</h3>
+								<div class="mb-1 text-muted">{{movie.duration}}
+									min</div>
+
+								<p>
+									{% for genre in movie.genres %}
+										<span class="badge bg-danger text-white">{{ genre.name }}</span>
+									{% endfor %}
+								</p>
+
+								<p>
+									<small>{{ movie.summary }}</small>
+								</p>
+
+								{% include 'fragment/_star_rating.html.twig' %}
+
+								<dt class="col-sm-12">Année</dt>
+								<dd class="col-sm-12">{{ movie.releaseDate|date('Y') }}</dd>
+
+								<a href="{{ path('app_show', {id: movie.id,slug: movie.slug})}}" class="fs-1 mt-3 text-danger align-self-start">
+									<i class="bi bi-arrow-right-square"></i>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+					
 				{% else %}
 					<h1 class="mt-5 text-center">Aucuns résultats pour votre recherche.</h1>
 				{% endif %}

@@ -47,6 +47,19 @@ class GenreRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function findAllMovieByGenreOrderByName($id)
+    {   
+        return $this->createQueryBuilder('g')
+        ->select('g')
+        ->leftJoin('g.movies', 'movie')
+        ->addSelect('movie')
+        ->where('g.id = :id')
+        ->setParameter('id', $id)
+        ->orderBy('movie.title', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
 //    /**
 //     * @return Genre[] Returns an array of Genre objects
 //     */
